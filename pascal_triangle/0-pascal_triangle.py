@@ -1,28 +1,16 @@
 #!/usr/bin/python3
-"""
-Pascal's Triangle
-"""
+"""Create a function that returns the Pascal’s triangle of n"""
 
 
 def pascal_triangle(n):
-    """
-    Function to return a list of pascal triangle up to row n.
-    Attributes:
-        n(integer): Number of rows of pascal triangle.
-    """
+    """Returns pascal triangle of n"""
     if n <= 0:
         return []
-    if n < 2:
-        return [[1 for _ in range(n)]]
-    else:
-        two_sum = 0
-        prev_pascals = pascal_triangle(n-1)
-        new_pascal = [1]
-        for i in range(len(prev_pascals[-1][:-1])):
-            two_sum = prev_pascals[-1][i] + prev_pascals[-1][i+1]
-            new_pascal.append(two_sum)
-            two_sum = 0
-        new_pascal.append(1)
-        prev_pascals.append(new_pascal)
-        return prev_pascals
-
+    triangle = [[1]]
+    for i in range(1, n):
+        row = [1]
+        for j in range(1, i):
+            row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
+        row.append(1)
+        triangle.append(row)
+    return triangle
